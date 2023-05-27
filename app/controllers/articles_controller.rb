@@ -30,11 +30,14 @@ class ArticlesController < ApplicationController
     if @article.update(article_params)
       redirect_to @article and return
     end
-    render :edit, :status :unprocessable_entity 
+    render :edit, status: :unprocessable_entity 
   end
 
   def destroy
+    @article = Article.find(param[:id])
+    @article.destroy
 
+    redirect_to root_path, status: :see_other
   end
 
   private
